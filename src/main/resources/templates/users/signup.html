@@ -1,0 +1,59 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name=”viewport” content=”width=device-width,initial-scale=1″ />
+<title>Sign up | Users | Stockstore</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+	<main class="container">
+		<nav aria-label="breadcrumb">
+		  <ol class="breadcrumb">
+		    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+		    <li class="breadcrumb-item active" aria-current="page">Sign up</li>
+		  </ol>
+		</nav>
+		<h2>Sign up</h2>
+		<p class="alert alert-danger" role="alert" th:if="${errors}" th:text="${errors}"></p>
+		<form class="form" th:method="POST" th:action="@{/signup}">
+			<fieldset class="form-group">
+				<label for="role">Role</label>
+				<select class="form-control" id="role" name="role" required>
+					<option value="ROLE_ADMIN">管理者</option>
+					<option value="ROLE_USER">一般</option>
+					<option value="ROLE_READONLY" selected>閲覧者</option>
+				</select>
+			</fieldset>
+			<fieldset class="form-group">
+				<label for="username">Name</label>
+				<input type="text" class="form-control" id="username" name="username" value="" required />
+			</fieldset>
+			<fieldset class="form-group">
+				<label for="password">Password</label>
+				<input type="password" class="form-control" id="password" name="password" value="" required />
+			</fieldset>
+			<fieldset class="form-group">
+				<label for="password_confirmation">Password (Confirmation)</label>
+				<input type="password" class="form-control" id="password_confirmation" name="password_confirmation" value="" required />
+			</fieldset>
+			<button type="submit" class="btn btn-primary">Sign up</button>
+		</form>
+	</main>
+	<script>
+		document.addEventListener('load', () => {
+			const password = document.querySelector('#password');
+			const confirmation = document.querySelector('#password_confirmation');
+			
+			password?.addEventListener('input', ev => {
+				if (ev.target?.value) {
+					confirmation?.setAttribute('pattern', ev.target.value);
+				} else {
+					confirmation?.removeAttribute('pattern');
+				}
+			});
+		});
+	</script>
+</body>
+</html>

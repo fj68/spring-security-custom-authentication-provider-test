@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.stockstore.mapper.UserMapper">
+	<resultMap id="userResultMap" type="com.example.stockstore.entity.User">
+		<id 	property="username" 			column="username" />
+		<result property="password" 			column="password"/>
+		<result property="role" 				column="role"/>
+		<result property="registerAt" 			column="register_at"/>
+		<result property="lastLoginAt" 			column="last_login_at"/>
+		<result property="updateAt" 			column="update_at"/>
+	</resultMap>
+    <select id="selectAll" resultMap="userResultMap">
+        SELECT * FROM users
+    </select>
+    <select id="select" resultMap="userResultMap">
+        SELECT * FROM users
+        WHERE username = #{username}
+    </select>
+    <insert id="insert">
+        INSERT INTO users (username, password, role, register_at, last_login_at, update_at)
+        VALUES (#{username}, #{password}, #{role}, #{registerAt}, #{lastLoginAt}, #{updateAt})
+    </insert>
+	<update id="update">
+		UPDATE users SET
+			password 	= #{password},
+			role 		= #{role}
+		WHERE username = #{username}
+	</update>
+	<update id="changePassword">
+		UPDATE users SET
+			password = #{password}
+		WHERE username = #{username}
+	</update>
+	<delete id="delete">
+		DELETE FROM users
+		WHERE username = #{username}
+	</delete>
+</mapper>
